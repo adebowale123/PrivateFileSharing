@@ -26,22 +26,22 @@ class MyEncryptor:
         ciphertext, tag = cipher.encrypt_and_digest(data)
         return ciphertext, tag, cipher
 
-    def encrypt_file(self, file_name):
-      with  open(file_name, 'rb') as fo:
+    def encrypt_file(self, FileName):
+      with  open(FileName, 'rb') as fo:
           plaintext = fo.read()
 
       ciphertext, tag, cipher = self.encrypt(plaintext)
     #creating a new file that is saved with .enc extension
-      with open(file_name + ".enc", 'wb') as fo:
+      with open(FileName + ".enc", 'wb') as fo:
           [fo.write(x) for x in (cipher.nonce, tag, ciphertext)]
           fo.close()
     # removing the original file and changing to the encrypted file
     # with ciphertext, nonce and tags    
-      os.remove(file_name)             
+      os.remove(FileName)             
 
-    def decrypt_file(self, file_name):
+    def decrypt_file(self, FileName):
 
-        with open(file_name, 'rb') as fo:
+        with open(FileName, 'rb') as fo:
             nonce, tag, ciphertext = [ fo.read(x) for x in (16, 16, -1)]
         dec = self.decrypt(ciphertext, nonce, tag)
 
@@ -50,11 +50,11 @@ class MyEncryptor:
             exit()
         # if values are correct a file is created in a writing mode
         # And decrypted        
-        with open(file_name[:-4], 'wb') as fo:
+        with open(FileName[:-4], 'wb') as fo:
             fo.write(dec)
             fo.close()
         # if decryption is succesful it removes the .enc and returns to original file        
-        os.remove(file_name)                
+        os.remove(FileName)                
 
     def getAllFiles(self,mode):
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -78,14 +78,14 @@ class MyEncryptor:
         
     def encrypt_all_files(self):
          dirs = self.getAllFiles(mode = 'e')
-         for file_name in dirs:
-             self.encrypt_file(file_name)
+         for FileName in dirs:
+             self.encrypt_file(FileName)
     
 
     def decrypt_all_files(self):
          dirs = self.getAllFiles(mode = 'd')
-         for file_name in dirs:
-             self.decrypt_file(file_name)
+         for FileName in dirs:
+             self.decrypt_file(FileName)
 
 def generate_key(password):
     key = hashlib.sha256(password.encode('utf-8')).digest()
@@ -105,7 +105,7 @@ while True:
 while True:
     clear()
     choice = int(input(
-        chalk.yellow(
+        chalk.green(
         "1. Press '1' to encrypt all files.\n2. Press '2' to decrypt all files.\n3. Press '3' to exit.\n "    
         )
     )) 
