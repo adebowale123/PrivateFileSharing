@@ -29,15 +29,15 @@ user1 = DH_Endpoint(u1_public, u2_public, u1_private)
 user2 = DH_Endpoint(u1_public, u2_public, u2_private)
 
 u1_partial=user1.generate_partial_key()
-print("user1 partial key:",u1_partial) #147
+print("user1 partial key:",u1_partial) #1123
 
 u2_partial=user2.generate_partial_key()
-print("user2 partial key:",u2_partial)
+print("user2 partial key:",u2_partial)#1102
 
 u1_full=user1.generate_full_key(u2_partial)
-print("user1 full key:",u1_full) #75
+print("user1 full key:",u1_full) #986
 
 u2_full=user2.generate_full_key(u1_partial)
-print("user2 full key:",u2_full) #75
+print("user2 full key:",u2_full) #986
 
 
