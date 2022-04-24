@@ -10,7 +10,7 @@ Returns:A boolean value that can be either true or false
 """
 
 def checkConditions(entry):
-    return (entry.is_file() and entry.name.endswith(".enc"))
+    return (entry.is_file() and entry.name.endswith(".txt"))
 
 """
 Description:Returns list of files from selected directory. It is non-recursive and excludes subfolders currently.
@@ -65,11 +65,11 @@ def encryptFile(fList, keyName):
                 encrypted_file.write(encrypted)
     return encFileList
 
-"""
-Description:Decrypts the file
-Parameters:key(the key used to encrypt/decrypt),folderToDec(folder that contains files to get decrypted)
-Returns:None
-"""
+
+#Description:Decrypts the file
+#Parameters:key(the key used to encrypt/decrypt),folderToDec(folder that contains files to get decrypted)
+#Returns:None
+
 def decryptFile(key, folderToDec):
     filesToDecrypt = getFiles(folderToDec)
     fernet = Fernet(key)
@@ -80,11 +80,11 @@ def decryptFile(key, folderToDec):
         with open(folderToDec + '/' + fileName, 'wb') as dec_file:
             dec_file.write(decrypted)
 
-"""
-Description:Inserts encrypted files into a .zip file
-Parameters:key(the key used to encrypt/decrypt),folderToDec(folder that contains files to get decrypted)
-Returns:None
-"""
+
+#Description:Inserts encrypted files into a .zip file
+#Parameters:key(the key used to encrypt/decrypt),folderToDec(folder that contains files to get decrypted)
+#Returns:None
+
 def insertFile(encdFiles, outputName, imFileName):
     zipObj = ZipFile('encrypted.zip', 'w')
     for fileName in encdFiles:
@@ -97,11 +97,11 @@ def insertFile(encdFiles, outputName, imFileName):
         os.remove(fileName)
     os.remove('encrypted.zip')
 
-"""
-Description:Extracts the hidden files from image file
-Parameters:folderToDec(folder to extract hidden files),outName(name of the steganographic image that contains hidden files)
-Returns:None
-"""
+
+#Description:Extracts the hidden files from image file
+#Parameters:folderToDec(folder to extract hidden files),outName(name of the steganographic image that contains hidden files)
+#Returns:None
+
 def extractFile(folderToExtract, outName):
     os.system("rename " + outName + " encrypted.zip")
 #Extract all the contents of zip file in current directory
